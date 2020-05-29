@@ -1,0 +1,45 @@
+-- zadanie 1 --
+-- Wykonaj dump (backup) bazy danych z poprzednich ćwiczeń --
+
+cd /d D:\
+cd ProgramFiles/postgre/bin
+
+pg_dump -U postgres -Fc Firma > Firmadump.sql
+---------------------------------------------------------------------------------------------
+-- zadanie 2 --
+-- Usuń tę bazę --
+
+Baza usunięta w PgAdmin 
+---------------------------------------------------------------------------------------------
+-- zadanie 3 --
+-- Przywróć ją wykorzystując polecenie restore --
+
+cd /d D:\
+cd ProgramFiles/postgre/bin
+pg_restore -U postgres -d Firma "D:\ProgramFiles\postgre\bin\Firmadump.sql
+---------------------------------------------------------------------------------------------
+-- zadanie 4 -- 
+-- Zainstaluj drugie (prócz PostgreSQL) środowisko bazodanowe. Wybierz dowolną wersję SQL Server’a 2019 (Developer, Express lub trial)--
+
+Instalacja Microsoft SQL Server
+---------------------------------------------------------------------------------------------
+-- zadanie 5 -- 
+-- Pobierz, oraz zainstaluj bazę AdventureWorks --
+
+Pobranie oraz zainstalowanie bazy AdventureWorks
+---------------------------------------------------------------------------------------------
+-- zadanie 6 --
+-- Wykonaj backup bazy, uwzględniając wyłącznie tabele ze schematu HumanResources --
+
+BACKUP DATABASE AdventureWorks2017
+ TO DISK = 'D:\ProgramFiles\sql server 2019\MSSQL15.MSSQLSERVER\MSSQL\Backup\AWorks2017.bak'
+    WITH FORMAT;
+---------------------------------------------------------------------------------------------
+-- zadanie 7 --
+-- Na podstawie danych w bazie AdventureWorks przygotuj widok zawierający login pracownika oraz nazwę departamentu, w którym pracuje --
+
+CREATE VIEW LOGIN_DEP AS SELECT HR_E.LoginID, HR_D.Name
+FROM AdventureWorks2017.HumanResources.Department HR_D, 
+AdventureWorks2017.HumanResources.EmployeeDepartmentHistory HR_EDH, 
+AdventureWorks2017.HumanResources.Employee HR_E 
+WHERE HR_D.DepartmentID=HR_EDH.DepartmentID AND HR_E.BusinessEntityID = HR_EDH.BusinessEntityID;
